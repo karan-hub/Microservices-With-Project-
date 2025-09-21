@@ -8,7 +8,6 @@ import com.fitness.userservice.models.User;
 import com.fitness.userservice.repositoy.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,12 +33,13 @@ public class UserService {
         return  buildReposition(savedUser);
     }
 
-    public UserResponse getUserProfile(Long userId) {
+    public UserResponse getUserProfile(String userId) {
         User user = userRepository.findById(userId).orElseThrow(
                 ()-> new UserNotFoundException("User Not Found For " + userId)
         );
         return buildReposition(user);
     }
+
     private UserResponse buildReposition(User savedUser) {
         UserResponse response = UserResponse.builder()
                 .id(savedUser.getId())
@@ -54,4 +54,8 @@ public class UserService {
     }
 
 
+    public Boolean existByUserId(String userId) {
+
+        return  userRepository.existsById(userId);
+    }
 }
