@@ -35,7 +35,7 @@ public class UserService {
 
     public UserResponse getUserProfile(String userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                ()-> new UserNotFoundException("User Not Found For " + userId)
+                ()-> new UserNotFoundException("User Not Found For Buddy " + userId)
         );
         return buildReposition(user);
     }
